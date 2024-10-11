@@ -1,0 +1,74 @@
+.starRating {
+  font-size: 24px;
+}
+
+.starFilled {
+  color: gold;
+  cursor: pointer;
+}
+
+.starEmpty {
+  color: #ccc;
+  cursor: pointer;
+}
+
+.starEmpty:hover {
+  color: gold; /* Change color on hover */
+}
+
+/* OverlayPopup.module.css */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Ensure it appears above other content */
+}
+
+.popup {
+  background-color: #fff; /* Popup background color */
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Popup shadow */
+  position: relative;
+  z-index: 10000; /* Ensure it appears above the overlay */
+  width: 30%;
+
+  @media screen and (max-width: 1280px) {
+    width: 50%;
+  }
+
+  @media screen and (max-width: 1024px) {
+    width: 70%;
+  }
+
+  @media screen and (max-width: 640px) {
+    width: 90%;
+  }
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 24px;
+  color: #666;
+}
+
+.closeButton:hover {
+  color: #333;
+}
+
+.submitBtn {
+  @apply inline-block border-2 border-emerald-400 rounded text-neutral-950 text-center uppercase text-sm font-semibold mx-auto px-6 py-2 hover:bg-emerald-500 hover:border-emerald-600 hover:text-white duration-75 active:bg-emerald-600;
+}
+
+.cancelBtn {
+  @apply inline-block border-2 border-red-400 rounded text-neutral-950 text-center uppercase text-sm font-semibold mx-auto px-6 py-2 hover:bg-red-500 hover:border-red-600 hover:text-white duration-75 active:bg-red-600 mr-10;
+}
