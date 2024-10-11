@@ -8,6 +8,9 @@ import FeedbackForm from "./components/FeedbackForm";
 import { toast } from "react-hot-toast";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import CodeMirror, { ViewUpdate } from "@uiw/react-codemirror";
+import { dracula } from "@uiw/codemirror-theme-dracula";
+import { python } from "@codemirror/lang-python";
 
 export default function Home() {
   const [inputRequest, setInputRequest] = useState("");
@@ -18,26 +21,6 @@ export default function Home() {
   const [language, setLanguage] = useState("");
 
   const controllerRef = useRef(null);
-  const textAreaRef = useRef(null);
-
-  const resizeTextArea = () => {
-    if (!textAreaRef.current) {
-      return;
-    }
-
-    textAreaRef.current.style.height = "auto"; // will not work without this!
-    textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
-  };
-
-  useEffect(() => {
-    resizeTextArea();
-    window.addEventListener("resize", resizeTextArea);
-  }, []);
-
-  const handleInputRequestChange = (e) => {
-    setInputRequest(e.target.value);
-    resizeTextArea();
-  };
 
   const handleOpenFeedbackForm = (e) => {
     setIsFeedbackFormOpen(!isFeedbackFormOpen);
@@ -145,7 +128,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen grid place-items-center w-full">
-      <div className="border rounded border-white/0 xl:w-full max-w-full xl:px-96 px-8 xl:py-28 py-10">
+      <div className="border rounded border-white/0 xl:w-full max-w-full xl:px-96 px-8 xl:py-28 py-10 overflow-hidden">
         <h1 className="text-center text-2xl md:text-3xl font-bold bg-clip-text">
           Paste Your Code Snippet And Have A Sip!
         </h1>
@@ -153,16 +136,18 @@ export default function Home() {
         <form className="mt-6 flex flex-col gap-4 w-[100%] mx-auto">
           {/* INPUT FIELD */}
           <div>
-            <textarea
-              id="inputRequest"
+            <CodeMirror
               value={inputRequest}
-              rows="1"
-              className="overflow-hidden resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="The code snippet that you need me to write the documentations..."
-              onChange={handleInputRequestChange}
-              required={true}
-              ref={textAreaRef}
-            ></textarea>
+              theme={dracula}
+              height="500px"
+              width="100%"
+              maxWidth="100%"
+              onChange={(value, ViewUpdate) => {
+                setInputRequest(value);
+              }}
+              placeholder="Paste Your Code Here..."
+              extensions={[python()]}
+            />
           </div>
 
           <div className="mx-auto mt-4">
