@@ -97,7 +97,7 @@ export default function Home() {
           }
           //   setResponseStream(responseStream.replace("```", ""));
         } catch (e) {
-          console.log(e);
+          console.error("Error: ", e);
         } finally {
           setIsStreaming(false);
         }
